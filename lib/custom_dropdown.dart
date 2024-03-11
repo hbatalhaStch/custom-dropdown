@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 export 'custom_dropdown.dart';
+export 'widgets/header_list.dart';
 
 // models
 part 'models/custom_dropdown_decoration.dart';
