@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class HeaderList extends StatelessWidget {
   final int itemCount;
   final Widget Function(int index) label;
-  final void Function()? onDeleted;
+  final void Function(int index)? onDeleted;
   const HeaderList({
     super.key,
     required this.itemCount,
@@ -29,7 +29,9 @@ class HeaderList extends StatelessWidget {
                 const EdgeInsets.only(left: 12, top: 0, right: 4, bottom: 0),
             label: getLabel(index),
             deleteIcon: const Icon(Icons.cancel_outlined, size: 18),
-            onDeleted: onDeleted,
+            onDeleted: () {
+              onDeleted?.call(index);
+            },
           );
         },
       ),
