@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class HeaderList extends StatelessWidget {
   final int itemCount;
-  final Widget Function(int index) label;
+  final String Function(int index) label;
   final void Function(int index)? onDeleted;
   const HeaderList({
     super.key,
@@ -12,7 +12,8 @@ class HeaderList extends StatelessWidget {
   });
 
   Widget getLabel(index) {
-    return label(index);
+    final text = label(index);
+    return Text(text);
   }
 
   @override
