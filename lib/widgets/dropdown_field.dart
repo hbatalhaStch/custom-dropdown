@@ -10,6 +10,7 @@ class _DropDownField<T> extends StatefulWidget {
   final VoidCallback onTap;
   final ValueNotifier<T?> selectedItemNotifier;
   final String hintText;
+  final bool enabled;
   final Color? fillColor;
   final BoxBorder? border;
   final BorderRadius? borderRadius;
@@ -33,6 +34,7 @@ class _DropDownField<T> extends StatefulWidget {
     required this.maxLines,
     required this.dropdownType,
     required this.selectedItemsNotifier,
+    required this.enabled,
     this.hintText = 'Select value',
     this.fillColor,
     this.border,
@@ -123,7 +125,7 @@ class _DropDownFieldState<T> extends State<_DropDownField<T>> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: widget.enabled ? widget.onTap : null,
       child: Container(
         padding: widget.headerPadding ?? _defaultHeaderPadding,
         decoration: BoxDecoration(

@@ -151,6 +151,9 @@ class CustomDropdown<T> extends StatefulWidget {
   /// The [controller] that can be used to control [CustomDropdown] multi-select variants selected items
   final MultiSelectController<T>? controller;
 
+  /// The [enabled] that can be used to control whether [CustomDropdown] is enabled/clickable
+  final bool enabled;
+
   CustomDropdown({
     super.key,
     required this.items,
@@ -172,6 +175,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.canCloseOutsideBounds = true,
     this.hideSelectedFieldWhenExpanded = false,
     this.excludeSelected = true,
+    this.enabled = true,
   })  : assert(
           initialItem == null || items!.contains(initialItem),
           'Initial item must match with one of the item in items list.',
@@ -214,6 +218,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.excludeSelected = true,
     this.canCloseOutsideBounds = true,
     this.hideSelectedFieldWhenExpanded = false,
+    this.enabled = true,
   })  : assert(
           initialItem == null || items!.contains(initialItem),
           'Initial item must match with one of the item in items list.',
@@ -255,6 +260,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.searchRequestLoadingIndicator,
     this.excludeSelected = true,
     this.canCloseOutsideBounds = true,
+    this.enabled = true,
     this.hideSelectedFieldWhenExpanded = false,
   })  : _searchType = _SearchType.onRequestData,
         _dropdownType = _DropdownType.singleSelect,
@@ -278,6 +284,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.listItemBuilder,
     this.hintBuilder,
     this.canCloseOutsideBounds = true,
+    this.enabled = true,
     this.hideSelectedFieldWhenExpanded = false,
     this.maxlines = 1,
     this.overlayHeight,
@@ -326,6 +333,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.searchHintText,
     this.validateOnChange = true,
     this.canCloseOutsideBounds = true,
+    this.enabled = true,
     this.hideSelectedFieldWhenExpanded = false,
     this.maxlines = 1,
     this.overlayHeight,
@@ -380,6 +388,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.itemsListPadding,
     this.listItemPadding,
     this.canCloseOutsideBounds = true,
+    this.enabled = true,
     this.hideSelectedFieldWhenExpanded = false,
   })  : assert(
           initialItems == null || controller == null,
@@ -557,6 +566,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                   hintStyle: decoration?.hintStyle,
                   headerStyle: decoration?.headerStyle,
                   hintText: safeHintText,
+                  enabled: widget.enabled,
                   hintBuilder: widget.hintBuilder,
                   headerBuilder: widget.headerBuilder,
                   headerListBuilder: widget.headerListBuilder,
