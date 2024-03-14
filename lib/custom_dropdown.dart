@@ -173,10 +173,6 @@ class CustomDropdown<T> extends StatefulWidget {
     this.hideSelectedFieldWhenExpanded = false,
     this.excludeSelected = true,
   })  : assert(
-          items!.isNotEmpty,
-          'Items list must contain at least one item.',
-        ),
-        assert(
           initialItem == null || items!.contains(initialItem),
           'Initial item must match with one of the item in items list.',
         ),
@@ -219,10 +215,6 @@ class CustomDropdown<T> extends StatefulWidget {
     this.canCloseOutsideBounds = true,
     this.hideSelectedFieldWhenExpanded = false,
   })  : assert(
-          items!.isNotEmpty,
-          'Items list must contain at least one item.',
-        ),
-        assert(
           initialItem == null || items!.contains(initialItem),
           'Initial item must match with one of the item in items list.',
         ),
