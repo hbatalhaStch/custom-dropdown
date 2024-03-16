@@ -211,6 +211,12 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
       }
     });
 
+    widget.selectedItemNotifier.addListener(() {
+      if (mounted) {
+        selectedItem = widget.selectedItemNotifier.value;
+      }
+    });
+
     if (widget.excludeSelected &&
         widget.items.length > 1 &&
         selectedItem != null) {

@@ -15,3 +15,5 @@ class MultiSelectController<T> extends ValueNotifier<List<T>> {
     value = [];
   }
 }
+
+typedef SelectController<T> = ValueNotifier<T>;
