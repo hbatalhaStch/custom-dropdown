@@ -77,10 +77,10 @@ class CustomDropdown<T> extends StatefulWidget {
   final bool validateOnChange;
 
   /// Called when the item of the [CustomDropdown] should change.
-  final Function(T?)? onChanged;
+  final ValueChanged<T?>? onChanged;
 
   /// Called when the list of items of the [CustomDropdown] should change.
-  final Function(List<T>)? onListChanged;
+  final ValueChanged<List<T>>? onListChanged;
 
   /// Hide the selected item from the [items] list.
   final bool excludeSelected;
