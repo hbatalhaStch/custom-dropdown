@@ -464,7 +464,6 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
     });
 
     selectedItemNotifier.addListener(() {
-      print('being called');
       widget.onChanged?.call(selectedItemNotifier.value);
       _formFieldState?.didChange((selectedItemNotifier.value, []));
       if (widget.validateOnChange) {
