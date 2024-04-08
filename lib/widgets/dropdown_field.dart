@@ -12,11 +12,9 @@ class _DropDownField<T> extends StatefulWidget {
   final String hintText;
   final bool enabled;
   final Color? fillColor;
-  final BoxBorder? border;
   final BorderRadius? borderRadius;
   final String? errorText;
   final TextStyle? errorStyle, headerStyle, hintStyle;
-  final BorderSide? errorBorderSide;
   final Widget? suffixIcon;
   final List<BoxShadow>? shadow;
   final EdgeInsets? headerPadding;
@@ -37,13 +35,11 @@ class _DropDownField<T> extends StatefulWidget {
     required this.enabled,
     this.hintText = 'Select value',
     this.fillColor,
-    this.border,
     this.borderRadius,
     this.errorText,
     this.errorStyle,
     this.hintStyle,
     this.headerStyle,
-    this.errorBorderSide,
     this.headerBuilder,
     this.shadow,
     this.headerListBuilder,
@@ -127,10 +123,8 @@ class _DropDownFieldState<T> extends State<_DropDownField<T>> {
     return GestureDetector(
       onTap: widget.enabled ? widget.onTap : null,
       child: Container(
-        padding: widget.headerPadding ?? _defaultHeaderPadding,
         decoration: BoxDecoration(
           color: widget.fillColor ?? CustomDropdownDecoration._defaultFillColor,
-          border: widget.border,
           borderRadius: widget.borderRadius ?? _defaultBorderRadius,
           boxShadow: widget.shadow,
         ),

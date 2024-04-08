@@ -23,20 +23,23 @@ class CustomDropdownDecoration {
   /// Suffix icon for opened/expanded state of [CustomDropdown].
   final Widget? expandedSuffixIcon;
 
+  /// label for [CustomDropdown].
+  final Widget? label;
+
   /// Border for closed state of [CustomDropdown].
-  final BoxBorder? closedBorder;
+  final BorderSide? closedBorder;
 
   /// Border radius for closed state of [CustomDropdown].
   final BorderRadius? closedBorderRadius;
 
   /// Error border for closed state of [CustomDropdown].
-  final BoxBorder? closedErrorBorder;
+  final BorderSide? closedErrorBorder;
 
   /// Error border radius for closed state of [CustomDropdown].
   final BorderRadius? closedErrorBorderRadius;
 
   /// Border for opened/expanded state of [CustomDropdown].
-  final BoxBorder? expandedBorder;
+  final BorderSide? expandedBorder;
 
   /// Border radius for opened/expanded state of [CustomDropdown].
   final BorderRadius? expandedBorderRadius;
@@ -72,6 +75,7 @@ class CustomDropdownDecoration {
     this.expandedShadow,
     this.closedSuffixIcon,
     this.expandedSuffixIcon,
+    this.label,
     this.closedBorder,
     this.closedBorderRadius,
     this.closedErrorBorder,

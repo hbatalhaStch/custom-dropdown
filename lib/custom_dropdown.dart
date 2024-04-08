@@ -33,10 +33,12 @@ const _defaultBorderRadius = BorderRadius.all(
   Radius.circular(12),
 );
 
-final Border _defaultErrorBorder = Border.all(
+const BorderSide _defaultErrorBorder = BorderSide(
   color: _defaultErrorColor,
   width: 1.5,
 );
+
+const BorderSide _defaultBorder = BorderSide.none;
 
 const _defaultErrorStyle = TextStyle(
   color: _defaultErrorColor,
@@ -528,10 +530,24 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
         _formFieldState = formFieldState;
         return InputDecorator(
           decoration: InputDecoration(
+            label: decoration?.label,
+            filled: true,
+            fillColor: decoration?.closedFillColor ??
+                CustomDropdownDecoration._defaultFillColor,
+            floatingLabelStyle: const TextStyle(color: Colors.black),
+            errorBorder: OutlineInputBorder(
+              borderSide: decoration?.closedErrorBorder ?? _defaultErrorBorder,
+              borderRadius:
+                  decoration?.closedBorderRadius ?? _defaultBorderRadius,
+            ),
+            border: OutlineInputBorder(
+              borderSide: decoration?.closedBorder ?? _defaultBorder,
+              borderRadius:
+                  decoration?.closedBorderRadius ?? _defaultBorderRadius,
+            ),
+            contentPadding: _defaultHeaderPadding,
             errorStyle: decoration?.errorStyle ?? _defaultErrorStyle,
             errorText: formFieldState.errorText,
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.zero,
           ),
           child: _OverlayBuilder(
             overlay: (size, hideCallback) {
@@ -594,9 +610,6 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                 child: _DropDownField<T>(
                   onTap: showCallback,
                   selectedItemNotifier: selectedItemNotifier,
-                  border: formFieldState.hasError
-                      ? (decoration?.closedErrorBorder ?? _defaultErrorBorder)
-                      : decoration?.closedBorder,
                   borderRadius: formFieldState.hasError
                       ? decoration?.closedErrorBorderRadius
                       : decoration?.closedBorderRadius,

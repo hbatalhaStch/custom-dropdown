@@ -5,7 +5,7 @@ const _defaultOverlayIconUp = Icon(
   size: 20,
 );
 
-const _defaultHeaderPadding = EdgeInsets.all(16.0);
+const _defaultHeaderPadding = EdgeInsets.all(15.0);
 const _overlayOuterPadding =
     EdgeInsetsDirectional.only(bottom: 12, start: 12, end: 12);
 const _defaultOverlayShadowOffset = Offset(0, 6);
@@ -251,7 +251,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
     final onSearch = widget.searchType != null;
 
     // overlay offset
-    final overlayOffset = Offset(-12, displayOverlayBottom ? 0 : 64);
+    final overlayOffset = Offset(-31.81, displayOverlayBottom ? -14 : 64);
 
     // list padding
     final listPadding =
@@ -281,7 +281,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
     final child = Stack(
       children: [
         Positioned(
-          width: widget.size.width + 24,
+          width: widget.size.width + 63.8,
           child: CompositedTransformFollower(
             link: widget.layerLink,
             followerAnchor:
@@ -295,7 +295,9 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                 decoration: BoxDecoration(
                   color: decoration?.expandedFillColor ??
                       CustomDropdownDecoration._defaultFillColor,
-                  border: decoration?.expandedBorder,
+                  border: Border.fromBorderSide(
+                    decoration?.expandedBorder ?? _defaultBorder,
+                  ),
                   borderRadius:
                       decoration?.expandedBorderRadius ?? _defaultBorderRadius,
                   boxShadow: decoration?.expandedShadow ??
@@ -352,31 +354,46 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                     onTap: () {
                                       setState(() => displayOverly = false);
                                     },
-                                    child: Padding(
-                                      padding: widget.headerPadding ??
-                                          _defaultHeaderPadding,
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: switch (
-                                                widget.dropdownType) {
-                                              _DropdownType.singleSelect =>
-                                                selectedItem != null
-                                                    ? headerBuilder(context)
-                                                    : hintBuilder(context),
-                                              _DropdownType.multipleSelect =>
-                                                selectedItems.isNotEmpty
-                                                    ? headerListBuilder(context)
-                                                    : hintBuilder(context),
-                                            },
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                          top: displayOverlayBottom ? 0 : 10),
+                                      child: InputDecorator(
+                                        decoration: InputDecoration(
+                                          label: decoration?.label,
+                                          filled: true,
+                                          fillColor:
+                                              decoration?.expandedFillColor ??
+                                                  CustomDropdownDecoration
+                                                      ._defaultFillColor,
+                                          floatingLabelStyle: const TextStyle(
+                                              color: Colors.black),
+                                          border: OutlineInputBorder(
+                                            borderRadius: widget.decoration
+                                                    ?.expandedBorderRadius ??
+                                                _defaultBorderRadius,
+                                            borderSide:
+                                                decoration?.expandedBorder ??
+                                                    _defaultBorder,
                                           ),
-                                          const SizedBox(width: 12),
-                                          decoration?.expandedSuffixIcon ??
-                                              _defaultOverlayIconUp,
-                                        ],
+                                          contentPadding: _defaultHeaderPadding,
+                                          suffixIcon:
+                                              decoration?.expandedSuffixIcon ??
+                                                  _defaultOverlayIconUp,
+                                        ),
+                                        child: switch (widget.dropdownType) {
+                                          _DropdownType.singleSelect =>
+                                            selectedItem != null
+                                                ? headerBuilder(context)
+                                                : hintBuilder(context),
+                                          _DropdownType.multipleSelect =>
+                                            selectedItems.isNotEmpty
+                                                ? headerListBuilder(context)
+                                                : hintBuilder(context),
+                                        },
                                       ),
                                     ),
                                   ),
+                                const SizedBox(height: 10),
                                 if (onSearch &&
                                     widget.searchType == _SearchType.onListData)
                                   if (!widget.hideSelectedFieldWhenOpen)
