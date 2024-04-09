@@ -25,6 +25,8 @@ part 'widgets/overlay_builder.dart';
 
 enum _DropdownType { singleSelect, multipleSelect }
 
+enum DropdownPlacement { top, bottom, auto }
+
 enum _SearchType { onListData, onRequestData }
 
 const _defaultErrorColor = Colors.red;
@@ -159,6 +161,9 @@ class CustomDropdown<T> extends StatefulWidget {
   /// The [enabled] that can be used to control whether [CustomDropdown] is enabled/clickable
   final bool enabled;
 
+  /// controls whether [CustomDropdown] dropdown is placed at the bottom or at the top
+  final DropdownPlacement dropdownPlacement;
+
   CustomDropdown({
     super.key,
     required this.items,
@@ -167,6 +172,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.hintText,
     this.decoration,
     this.validator,
+    this.dropdownPlacement = DropdownPlacement.auto,
     this.validateOnChange = true,
     this.listItemBuilder,
     this.headerBuilder,
@@ -218,6 +224,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.hintBuilder,
     this.noResultFoundBuilder,
     this.validator,
+    this.dropdownPlacement = DropdownPlacement.auto,
     this.validateOnChange = true,
     this.maxlines = 1,
     this.overlayHeight,
@@ -265,6 +272,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.hintBuilder,
     this.noResultFoundBuilder,
     this.validator,
+    this.dropdownPlacement = DropdownPlacement.auto,
     this.validateOnChange = true,
     this.maxlines = 1,
     this.overlayHeight,
@@ -296,6 +304,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.headerListBuilder,
     this.hintText,
     this.decoration,
+    this.dropdownPlacement = DropdownPlacement.auto,
     this.validateOnChange = true,
     this.listItemBuilder,
     this.hintBuilder,
@@ -343,6 +352,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.listItemBuilder,
     this.hintBuilder,
     this.decoration,
+    this.dropdownPlacement = DropdownPlacement.auto,
     this.headerListBuilder,
     this.noResultFoundText,
     this.noResultFoundBuilder,
@@ -387,6 +397,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.listController,
     this.futureRequestDelay,
     this.initialItems,
+    this.dropdownPlacement = DropdownPlacement.auto,
     this.items,
     this.hintText,
     this.decoration,
@@ -602,6 +613,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                 searchRequestLoadingIndicator:
                     widget.searchRequestLoadingIndicator,
                 dropdownType: widget._dropdownType,
+                dropdownPlacement: widget.dropdownPlacement,
               );
             },
             child: (showCallback) {

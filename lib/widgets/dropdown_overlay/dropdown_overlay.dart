@@ -37,6 +37,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final _NoResultFoundBuilder? noResultFoundBuilder;
   final CustomDropdownDecoration? decoration;
   final _DropdownType dropdownType;
+  final DropdownPlacement dropdownPlacement;
 
   const _DropdownOverlay({
     Key? key,
@@ -68,6 +69,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.headerBuilder,
     required this.hintBuilder,
     required this.searchType,
+    required this.dropdownPlacement,
     required this.futureRequest,
     required this.futureRequestDelay,
     required this.listItemBuilder,
@@ -80,7 +82,8 @@ class _DropdownOverlay<T> extends StatefulWidget {
 }
 
 class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
-  bool displayOverly = true, displayOverlayBottom = true;
+  bool displayOverly = true;
+  late bool displayOverlayBottom;
   bool isSearchRequestLoading = false;
   bool? mayFoundSearchRequestResult;
   late List<T> items;
@@ -191,12 +194,17 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
   @override
   void initState() {
     super.initState();
+
+    displayOverlayBottom = widget.dropdownPlacement == DropdownPlacement.auto ||
+        widget.dropdownPlacement == DropdownPlacement.bottom;
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final render1 = key1.currentContext?.findRenderObject() as RenderBox;
       final render2 = key2.currentContext?.findRenderObject() as RenderBox;
       final screenHeight = MediaQuery.of(context).size.height;
       double y = render1.localToGlobal(Offset.zero).dy;
-      if (screenHeight - y < render2.size.height) {
+      if (screenHeight - y < render2.size.height &&
+          widget.dropdownPlacement == DropdownPlacement.auto) {
         displayOverlayBottom = false;
         setState(() {});
       }
