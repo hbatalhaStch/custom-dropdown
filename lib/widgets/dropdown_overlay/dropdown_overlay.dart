@@ -251,7 +251,14 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
     final onSearch = widget.searchType != null;
 
     // overlay offset
-    final overlayOffset = Offset(-31.81, displayOverlayBottom ? -14 : 64);
+    final overlayOffset = Offset(
+      -31.81,
+      displayOverlayBottom
+          ? decoration?.label != null
+              ? -19
+              : -14
+          : 64,
+    );
 
     // list padding
     final listPadding =
@@ -345,49 +352,48 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
+                                if (!widget.hideSelectedFieldWhenOpen &&
+                                    decoration?.label != null)
+                                  const SizedBox(height: 4),
                                 if (!widget.hideSelectedFieldWhenOpen)
                                   GestureDetector(
                                     behavior: HitTestBehavior.opaque,
                                     onTap: () {
                                       setState(() => displayOverly = false);
                                     },
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                          top: displayOverlayBottom ? 0 : 10),
-                                      child: InputDecorator(
-                                        decoration: InputDecoration(
-                                          label: decoration?.label,
-                                          filled: true,
-                                          fillColor:
-                                              decoration?.expandedFillColor ??
-                                                  CustomDropdownDecoration
-                                                      ._defaultFillColor,
-                                          floatingLabelStyle: const TextStyle(
-                                              color: Colors.black),
-                                          border: OutlineInputBorder(
-                                            borderRadius: widget.decoration
-                                                    ?.expandedBorderRadius ??
-                                                _defaultBorderRadius,
-                                            borderSide:
-                                                decoration?.expandedBorder ??
-                                                    _defaultBorder,
-                                          ),
-                                          contentPadding: _defaultHeaderPadding,
-                                          suffixIcon:
-                                              decoration?.expandedSuffixIcon ??
-                                                  _defaultOverlayIconUp,
+                                    child: InputDecorator(
+                                      decoration: InputDecoration(
+                                        label: decoration?.label,
+                                        filled: true,
+                                        fillColor:
+                                            decoration?.expandedFillColor ??
+                                                CustomDropdownDecoration
+                                                    ._defaultFillColor,
+                                        floatingLabelStyle: const TextStyle(
+                                            color: Colors.black),
+                                        border: OutlineInputBorder(
+                                          borderRadius: widget.decoration
+                                                  ?.expandedBorderRadius ??
+                                              _defaultBorderRadius,
+                                          borderSide:
+                                              decoration?.expandedBorder ??
+                                                  _defaultBorder,
                                         ),
-                                        child: switch (widget.dropdownType) {
-                                          _DropdownType.singleSelect =>
-                                            selectedItem != null
-                                                ? headerBuilder(context)
-                                                : hintBuilder(context),
-                                          _DropdownType.multipleSelect =>
-                                            selectedItems.isNotEmpty
-                                                ? headerListBuilder(context)
-                                                : hintBuilder(context),
-                                        },
+                                        contentPadding: _defaultHeaderPadding,
+                                        suffixIcon:
+                                            decoration?.expandedSuffixIcon ??
+                                                _defaultOverlayIconUp,
                                       ),
+                                      child: switch (widget.dropdownType) {
+                                        _DropdownType.singleSelect =>
+                                          selectedItem != null
+                                              ? headerBuilder(context)
+                                              : hintBuilder(context),
+                                        _DropdownType.multipleSelect =>
+                                          selectedItems.isNotEmpty
+                                              ? headerListBuilder(context)
+                                              : hintBuilder(context),
+                                      },
                                     ),
                                   ),
                                 const SizedBox(height: 10),
