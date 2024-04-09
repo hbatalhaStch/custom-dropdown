@@ -540,7 +540,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
               borderRadius:
                   decoration?.closedBorderRadius ?? _defaultBorderRadius,
             ),
-            border: OutlineInputBorder(
+            enabledBorder: OutlineInputBorder(
               borderSide: decoration?.closedBorder ?? _defaultBorder,
               borderRadius:
                   decoration?.closedBorderRadius ?? _defaultBorderRadius,

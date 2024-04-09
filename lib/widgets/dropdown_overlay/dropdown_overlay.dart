@@ -371,7 +371,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                                     ._defaultFillColor,
                                         floatingLabelStyle: const TextStyle(
                                             color: Colors.black),
-                                        border: OutlineInputBorder(
+                                        enabledBorder: OutlineInputBorder(
                                           borderRadius: widget.decoration
                                                   ?.expandedBorderRadius ??
                                               _defaultBorderRadius,
