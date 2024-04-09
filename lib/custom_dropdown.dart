@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 export 'custom_dropdown.dart';
 export 'widgets/header_list.dart';
 
+part 'models/controller.dart';
 // models
 part 'models/custom_dropdown_decoration.dart';
 part 'models/custom_dropdown_list_filter.dart';
 part 'models/list_item_decoration.dart';
-part 'models/multi_select_controller.dart';
 part 'models/search_field_decoration.dart';
 // utils
 part 'utils/signatures.dart';
@@ -479,7 +479,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
     super.didUpdateWidget(oldWidget);
 
     if (widget.initialItem != oldWidget.initialItem) {
-      selectedItemNotifier = ValueNotifier(widget.initialItem);
+      selectedItemNotifier = SelectController(widget.initialItem);
     }
 
     if (widget.initialItems != oldWidget.initialItems) {
