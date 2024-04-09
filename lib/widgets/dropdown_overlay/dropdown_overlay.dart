@@ -295,9 +295,6 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                 decoration: BoxDecoration(
                   color: decoration?.expandedFillColor ??
                       CustomDropdownDecoration._defaultFillColor,
-                  border: Border.fromBorderSide(
-                    decoration?.expandedBorder ?? _defaultBorder,
-                  ),
                   borderRadius:
                       decoration?.expandedBorderRadius ?? _defaultBorderRadius,
                   boxShadow: decoration?.expandedShadow ??
