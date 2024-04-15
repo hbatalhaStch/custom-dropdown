@@ -162,7 +162,7 @@ class CustomDropdown<T> extends StatefulWidget {
   final bool enabled;
 
   /// controls whether [CustomDropdown] dropdown is placed at the bottom or at the top
-  final DropdownPlacement dropdownPlacement;
+  final DropdownPlacement? dropdownPlacement;
 
   CustomDropdown({
     super.key,
