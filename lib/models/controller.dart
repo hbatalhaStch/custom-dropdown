@@ -16,10 +16,14 @@ class MultiSelectController<T> extends ValueNotifier<List<T>> {
   }
 }
 
-class SelectController<T> extends ValueNotifier<T> {
+class SelectController<T> extends ValueNotifier<T?> {
   SelectController(super.value);
 
   void setValue(T newValue) {
     value = newValue;
+  }
+
+  void clear() {
+    value = null;
   }
 }
