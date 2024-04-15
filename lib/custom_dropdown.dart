@@ -167,7 +167,7 @@ class CustomDropdown<T> extends StatefulWidget {
   CustomDropdown({
     super.key,
     required this.items,
-    required this.onChanged,
+    this.onChanged,
     this.initialItem,
     this.hintText,
     this.decoration,
@@ -213,7 +213,7 @@ class CustomDropdown<T> extends StatefulWidget {
   CustomDropdown.search({
     super.key,
     required this.items,
-    required this.onChanged,
+    this.onChanged,
     this.initialItem,
     this.hintText,
     this.decoration,
@@ -259,7 +259,7 @@ class CustomDropdown<T> extends StatefulWidget {
   const CustomDropdown.searchRequest({
     super.key,
     required this.futureRequest,
-    required this.onChanged,
+    this.onChanged,
     this.futureRequestDelay,
     this.initialItem,
     this.items,
@@ -297,7 +297,7 @@ class CustomDropdown<T> extends StatefulWidget {
   CustomDropdown.multiSelect({
     super.key,
     required this.items,
-    required this.onListChanged,
+    this.onListChanged,
     this.listController,
     this.initialItems,
     this.listValidator,
@@ -345,7 +345,7 @@ class CustomDropdown<T> extends StatefulWidget {
   CustomDropdown.multiSelectSearch({
     super.key,
     required this.items,
-    required this.onListChanged,
+    this.onListChanged,
     this.listController,
     this.initialItems,
     this.listValidator,
@@ -393,7 +393,7 @@ class CustomDropdown<T> extends StatefulWidget {
   const CustomDropdown.multiSelectSearchRequest({
     super.key,
     required this.futureRequest,
-    required this.onListChanged,
+    this.onListChanged,
     this.listController,
     this.futureRequestDelay,
     this.initialItems,
