@@ -167,12 +167,15 @@ class CustomDropdown<T> extends StatefulWidget {
   /// controls whether [CustomDropdown] dropdown is placed at the bottom or at the top
   final DropdownPlacement? dropdownPlacement;
 
+  final Future<void> Function()? listShowCallback;
+
   CustomDropdown({
     super.key,
     required this.items,
     this.onChanged,
     this.initialItem,
     this.hintText,
+    this.listShowCallback,
     this.listItemTextBuilder,
     this.decoration,
     this.validator,
@@ -220,6 +223,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.onChanged,
     this.initialItem,
     this.hintText,
+    this.listShowCallback,
     this.listItemTextBuilder,
     this.decoration,
     this.searchHintText,
@@ -269,6 +273,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.initialItem,
     this.items,
     this.hintText,
+    this.listShowCallback,
     this.listItemTextBuilder,
     this.decoration,
     this.searchHintText,
@@ -309,6 +314,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.listValidator,
     this.headerListBuilder,
     this.hintText,
+    this.listShowCallback,
     this.listItemTextBuilder,
     this.decoration,
     this.dropdownPlacement = DropdownPlacement.auto,
@@ -364,6 +370,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.noResultFoundText,
     this.noResultFoundBuilder,
     this.hintText,
+    this.listShowCallback,
     this.listItemTextBuilder,
     this.searchHintText,
     this.validateOnChange = true,
@@ -408,6 +415,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.dropdownPlacement = DropdownPlacement.auto,
     this.items,
     this.hintText,
+    this.listShowCallback,
     this.listItemTextBuilder,
     this.decoration,
     this.searchHintText,
@@ -630,7 +638,10 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
               return CompositedTransformTarget(
                 link: layerLink,
                 child: _DropDownField<T>(
-                  onTap: showCallback,
+                  onTap: () async {
+                    await widget.listShowCallback?.call();
+                    showCallback();
+                  },
                   selectedItemNotifier: selectedItemNotifier,
                   borderRadius: formFieldState.hasError
                       ? decoration?.closedErrorBorderRadius
