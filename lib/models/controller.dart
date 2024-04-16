@@ -14,6 +14,8 @@ class MultiSelectController<T> extends ValueNotifier<List<T>> {
   void clear() {
     value = [];
   }
+
+  bool get hasValues => value.isNotEmpty;
 }
 
 class SelectController<T> extends ValueNotifier<T?> {
@@ -26,4 +28,6 @@ class SelectController<T> extends ValueNotifier<T?> {
   void clear() {
     value = null;
   }
+
+  bool get hasValue => value != null;
 }
