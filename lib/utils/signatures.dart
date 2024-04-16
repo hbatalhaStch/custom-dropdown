@@ -22,3 +22,5 @@ typedef _NoResultFoundBuilder = Widget Function(
   BuildContext context,
   String text,
 );
+
+typedef _ListItemTextBuilder<T> = String Function(T item);

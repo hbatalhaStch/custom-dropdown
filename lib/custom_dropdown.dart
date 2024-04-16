@@ -132,6 +132,9 @@ class CustomDropdown<T> extends StatefulWidget {
   /// The [listItemBuilder] that will be used to build item on demand.
   final _ListItemBuilder<T>? listItemBuilder;
 
+  /// The text used in the default [listItemBuilder]
+  final _ListItemTextBuilder<T>? listItemTextBuilder;
+
   /// The [headerBuilder] that will be used to build [CustomDropdown] header field.
   final _HeaderBuilder<T>? headerBuilder;
 
@@ -170,6 +173,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.onChanged,
     this.initialItem,
     this.hintText,
+    this.listItemTextBuilder,
     this.decoration,
     this.validator,
     this.dropdownPlacement = DropdownPlacement.auto,
@@ -216,6 +220,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.onChanged,
     this.initialItem,
     this.hintText,
+    this.listItemTextBuilder,
     this.decoration,
     this.searchHintText,
     this.noResultFoundText,
@@ -264,6 +269,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.initialItem,
     this.items,
     this.hintText,
+    this.listItemTextBuilder,
     this.decoration,
     this.searchHintText,
     this.noResultFoundText,
@@ -303,6 +309,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.listValidator,
     this.headerListBuilder,
     this.hintText,
+    this.listItemTextBuilder,
     this.decoration,
     this.dropdownPlacement = DropdownPlacement.auto,
     this.validateOnChange = true,
@@ -357,6 +364,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.noResultFoundText,
     this.noResultFoundBuilder,
     this.hintText,
+    this.listItemTextBuilder,
     this.searchHintText,
     this.validateOnChange = true,
     this.canCloseOutsideBounds = true,
@@ -400,6 +408,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.dropdownPlacement = DropdownPlacement.auto,
     this.items,
     this.hintText,
+    this.listItemTextBuilder,
     this.decoration,
     this.searchHintText,
     this.noResultFoundText,
@@ -596,6 +605,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                 headerBuilder: widget.headerBuilder,
                 headerListBuilder: widget.headerListBuilder,
                 hintText: safeHintText,
+                listItemTextBuilder: widget.listItemTextBuilder,
                 searchHintText: widget.searchHintText ?? 'Search',
                 hintBuilder: widget.hintBuilder,
                 decoration: decoration,

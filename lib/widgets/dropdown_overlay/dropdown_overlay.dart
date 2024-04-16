@@ -22,6 +22,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final VoidCallback hideOverlay;
   final String hintText, searchHintText, noResultFoundText;
   final bool excludeSelected, hideSelectedFieldWhenOpen, canCloseOutsideBounds;
+  final _ListItemTextBuilder<T>? listItemTextBuilder;
   final _SearchType? searchType;
   final Future<List<T>> Function(String)? futureRequest;
   final Duration? futureRequestDelay;
@@ -31,6 +32,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final EdgeInsets? headerPadding, listItemPadding, itemsListPadding;
   final Widget? searchRequestLoadingIndicator;
   final _ListItemBuilder<T>? listItemBuilder;
+
   final _HeaderBuilder<T>? headerBuilder;
   final _HeaderListBuilder<T>? headerListBuilder;
   final _HintBuilder? hintBuilder;
@@ -46,6 +48,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.layerLink,
     required this.hideOverlay,
     required this.hintText,
+    this.listItemTextBuilder,
     required this.searchHintText,
     required this.selectedItemNotifier,
     required this.selectedItemsNotifier,
@@ -126,7 +129,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
       children: [
         Expanded(
           child: Text(
-            result.toString(),
+            widget.listItemTextBuilder?.call(result) ?? result.toString(),
             maxLines: widget.maxLines,
             overflow: TextOverflow.ellipsis,
             style: widget.listItemStyle ?? const TextStyle(fontSize: 16),
