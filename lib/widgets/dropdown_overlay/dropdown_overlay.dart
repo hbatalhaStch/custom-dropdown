@@ -563,7 +563,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
       return Stack(
         children: [
           GestureDetector(
-            onTap: () => setState(() => displayOverly = false),
+            onTapDown: (_) => setState(() => displayOverly = false),
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
