@@ -560,21 +560,33 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
     );
 
     if (widget.canCloseOutsideBounds) {
-      return Stack(
-        children: [
-          GestureDetector(
-            onTapDown: (_) => setState(() => displayOverly = false),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              color: Colors.transparent,
+      return PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) {
+          setState(() => displayOverly = false);
+        },
+        child: Stack(
+          children: [
+            GestureDetector(
+              onTapDown: (_) => setState(() => displayOverly = false),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: Colors.transparent,
+              ),
             ),
-          ),
-          child,
-        ],
+            child,
+          ],
+        ),
       );
     }
 
-    return child;
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        setState(() => displayOverly = false);
+      },
+      child: child,
+    );
   }
 }
