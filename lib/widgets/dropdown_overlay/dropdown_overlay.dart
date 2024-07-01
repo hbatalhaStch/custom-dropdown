@@ -164,7 +164,6 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
       style: widget.headerStyle ??
           const TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.w500,
           ),
     );
   }
