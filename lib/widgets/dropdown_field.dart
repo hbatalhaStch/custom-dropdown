@@ -89,7 +89,6 @@ class _DropDownFieldState<T> extends State<_DropDownField<T>> {
       style: widget.headerStyle ??
           const TextStyle(
             fontSize: 16,
-            fontWeight: FontWeight.w500,
           ),
     );
   }
