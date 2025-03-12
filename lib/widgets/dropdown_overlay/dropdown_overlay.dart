@@ -84,7 +84,8 @@ class _DropdownOverlay<T> extends StatefulWidget {
   _DropdownOverlayState<T> createState() => _DropdownOverlayState<T>();
 }
 
-class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
+class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>>
+    with WidgetsBindingObserver {
   bool displayOverly = true;
   late bool displayOverlayBottom;
   bool isSearchRequestLoading = false;
@@ -196,7 +197,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
   @override
   void initState() {
     super.initState();
-
+    WidgetsBinding.instance.addObserver(this);
     displayOverlayBottom = widget.dropdownPlacement == DropdownPlacement.auto ||
         widget.dropdownPlacement == DropdownPlacement.bottom;
 
@@ -240,7 +241,38 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
   @override
   void dispose() {
     scrollController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeMetrics() {
+    final bottomInset = View.of(context).viewInsets.bottom; // Keyboard height
+    final render1 = key1.currentContext?.findRenderObject() as RenderBox;
+    final render2 = key2.currentContext?.findRenderObject() as RenderBox;
+    final screenHeight = MediaQuery.of(context).size.height;
+    double y = render1.localToGlobal(Offset.zero).dy;
+
+    if (screenHeight - y - bottomInset < render2.size.height) {
+      if (displayOverlayBottom) {
+        setState(() {
+          displayOverlayBottom = false;
+        });
+      }
+    } else {
+      final displayOverlayBottomInit = displayOverlayBottom;
+      displayOverlayBottom =
+          widget.dropdownPlacement == DropdownPlacement.auto ||
+              widget.dropdownPlacement == DropdownPlacement.bottom;
+      if (screenHeight - y < render2.size.height &&
+          widget.dropdownPlacement == DropdownPlacement.auto) {
+        displayOverlayBottom = false;
+      }
+
+      if (displayOverlayBottomInit != displayOverlayBottom) {
+        setState(() {});
+      }
+    }
   }
 
   void onItemSelect(T value) {
