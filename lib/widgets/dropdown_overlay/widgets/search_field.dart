@@ -57,6 +57,7 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
   void dispose() {
     searchCtrl.dispose();
     _delayTimer?.cancel();
+    focusNode.dispose();
     super.dispose();
   }
 
