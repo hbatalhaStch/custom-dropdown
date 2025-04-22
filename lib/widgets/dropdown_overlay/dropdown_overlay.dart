@@ -28,6 +28,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final Duration? futureRequestDelay;
   final int maxLines;
   final double? overlayHeight;
+  final int minItemsForOverlayHeight;
   final TextStyle? hintStyle, headerStyle, noResultFoundStyle, listItemStyle;
   final EdgeInsets? headerPadding, listItemPadding, itemsListPadding;
   final Widget? searchRequestLoadingIndicator;
@@ -58,6 +59,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.canCloseOutsideBounds,
     required this.maxLines,
     required this.overlayHeight,
+    required this.minItemsForOverlayHeight,
     required this.dropdownType,
     required this.decoration,
     required this.hintStyle,
@@ -247,6 +249,10 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>>
 
   @override
   void didChangeMetrics() {
+    if (widget.dropdownPlacement != DropdownPlacement.auto) {
+      return;
+    }
+
     final bottomInset = View.of(context).viewInsets.bottom; // Keyboard height
     final render1 = key1.currentContext?.findRenderObject() as RenderBox;
     final render2 = key2.currentContext?.findRenderObject() as RenderBox;
@@ -363,7 +369,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>>
                     axisAlignment: displayOverlayBottom ? 1.0 : -1.0,
                     child: SizedBox(
                       key: key2,
-                      height: items.length > 4
+                      height: items.length > widget.minItemsForOverlayHeight
                           ? widget.overlayHeight ?? (onSearch ? 270 : 225)
                           : null,
                       child: ClipRRect(
@@ -572,7 +578,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>>
                                         ),
                                       )
                                 else
-                                  items.length > 4
+                                  items.length > widget.minItemsForOverlayHeight
                                       ? Expanded(child: list)
                                       : list
                               ],
