@@ -99,6 +99,9 @@ class CustomDropdown<T> extends StatefulWidget {
   /// The asynchronous computation from which the items list returns.
   final Future<List<T>> Function(String)? futureRequest;
 
+  /// The asynchronous computation from which the items list are initially loaded.
+  final Future<List<T>?> Function()? futureLoad;
+
   /// Text that notify there's no search results match.
   ///
   /// Default to "No result found.".
@@ -176,7 +179,7 @@ class CustomDropdown<T> extends StatefulWidget {
 
   CustomDropdown({
     super.key,
-    required this.items,
+    this.items,
     this.onChanged,
     this.initialItem,
     this.hintText,
@@ -197,6 +200,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.itemsListPadding,
     this.listItemPadding,
     this.controller,
+    this.futureLoad,
     this.canCloseOutsideBounds = true,
     this.hideSelectedFieldWhenExpanded = false,
     this.excludeSelected = true,
@@ -225,7 +229,7 @@ class CustomDropdown<T> extends StatefulWidget {
 
   CustomDropdown.search({
     super.key,
-    required this.items,
+    this.items,
     this.onChanged,
     this.initialItem,
     this.hintText,
@@ -249,6 +253,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.itemsListPadding,
     this.listItemPadding,
     this.controller,
+    this.futureLoad,
     this.excludeSelected = true,
     this.canCloseOutsideBounds = true,
     this.hideSelectedFieldWhenExpanded = false,
@@ -310,12 +315,13 @@ class CustomDropdown<T> extends StatefulWidget {
         initialItems = null,
         onListChanged = null,
         listValidator = null,
+        futureLoad = null,
         headerListBuilder = null,
         listController = null;
 
   CustomDropdown.multiSelect({
     super.key,
-    required this.items,
+    this.items,
     this.onListChanged,
     this.listController,
     this.initialItems,
@@ -339,6 +345,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.expandedHeaderPadding,
     this.itemsListPadding,
     this.listItemPadding,
+    this.futureLoad,
   })  : assert(
           initialItems == null || listController == null,
           'Only one of initialItems or listController can be specified at a time',
@@ -386,6 +393,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.hideSelectedFieldWhenExpanded = false,
     this.maxlines = 1,
     this.overlayHeight,
+    this.futureLoad,
     this.minItemsForOverlayHeight = 4,
     this.closedHeaderPadding,
     this.expandedHeaderPadding,
@@ -453,6 +461,7 @@ class CustomDropdown<T> extends StatefulWidget {
         onChanged = null,
         headerBuilder = null,
         controller = null,
+        futureLoad = null,
         excludeSelected = false,
         validator = null;
 
@@ -465,6 +474,8 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
   late SelectController<T?> selectedItemNotifier;
   late MultiSelectController<T> selectedItemsNotifier;
   FormFieldState<(T?, List<T>)>? _formFieldState;
+  bool isFutureLoaded = false;
+  List<T> loadedItems = [];
 
   @override
   void initState() {
@@ -594,7 +605,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                 },
                 noResultFoundText: widget.noResultFoundText ?? 'No result found.',
                 noResultFoundBuilder: widget.noResultFoundBuilder,
-                items: widget.items ?? [],
+                items: [...(widget.items ?? []), ...loadedItems],
                 selectedItemNotifier: selectedItemNotifier,
                 selectedItemsNotifier: selectedItemsNotifier,
                 size: size,
@@ -627,6 +638,13 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                 searchRequestLoadingIndicator: widget.searchRequestLoadingIndicator,
                 dropdownType: widget._dropdownType,
                 dropdownPlacement: widget.dropdownPlacement,
+                futureLoad: widget.futureLoad,
+                isFutureLoaded: isFutureLoaded,
+                onFutureLoaded: (val) {
+                  isFutureLoaded = true;
+                  loadedItems.clear();
+                  loadedItems.addAll(val);
+                },
               );
             },
             child: (showCallback) {

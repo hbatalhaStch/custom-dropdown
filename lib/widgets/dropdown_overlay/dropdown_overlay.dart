@@ -23,6 +23,9 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final _ListItemTextBuilder<T>? listItemTextBuilder;
   final _SearchType? searchType;
   final Future<List<T>> Function(String)? futureRequest;
+  final Future<List<T>?> Function()? futureLoad;
+  final ValueChanged<List<T>> onFutureLoaded;
+  final bool isFutureLoaded;
   final Duration? futureRequestDelay;
   final int maxLines;
   final double? overlayHeight;
@@ -78,6 +81,9 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.listItemBuilder,
     required this.headerListBuilder,
     required this.noResultFoundBuilder,
+    required this.futureLoad,
+    required this.isFutureLoaded,
+    required this.onFutureLoaded,
   });
 
   @override
@@ -88,6 +94,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> with WidgetsBi
   bool displayOverly = true;
   late bool displayOverlayBottom;
   bool isSearchRequestLoading = false;
+
   bool? mayFoundSearchRequestResult;
   late List<T> items;
   late T? selectedItem;
@@ -199,14 +206,28 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> with WidgetsBi
     displayOverlayBottom =
         widget.dropdownPlacement == DropdownPlacement.auto || widget.dropdownPlacement == DropdownPlacement.bottom;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    isSearchRequestLoading = widget.futureLoad != null && !widget.isFutureLoaded;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final render1 = key1.currentContext?.findRenderObject() as RenderBox;
       final render2 = key2.currentContext?.findRenderObject() as RenderBox;
       final screenHeight = MediaQuery.of(context).size.height;
       double y = render1.localToGlobal(Offset.zero).dy;
+
       if (screenHeight - y < render2.size.height && widget.dropdownPlacement == DropdownPlacement.auto) {
         displayOverlayBottom = false;
         setState(() {});
+      }
+
+      if (widget.futureLoad != null && !widget.isFutureLoaded) {
+        final val = await widget.futureLoad!.call();
+        if (val != null) {
+          widget.onFutureLoaded(val);
+          setState(() {
+            items = val;
+            isSearchRequestLoading = false;
+          });
+        }
       }
     });
 
