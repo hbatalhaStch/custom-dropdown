@@ -226,6 +226,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> with WidgetsBi
           setState(() {
             items = val;
             isSearchRequestLoading = false;
+            mayFoundSearchRequestResult = items.isNotEmpty;
           });
         }
       }
