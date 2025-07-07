@@ -276,7 +276,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>>
       }
 
       if (displayOverlayBottomInit != displayOverlayBottom) {
-        setState(() {});
+        if (mounted) setState(() {});
       }
     }
   }
@@ -284,10 +284,10 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>>
   void onItemSelect(T value) {
     widget.onItemSelect(value);
     if (widget.dropdownType == _DropdownType.multipleSelect) {
-      setState(() {});
+      if (mounted) setState(() {});
       return;
     }
-    setState(() => displayOverly = false);
+    if (mounted) setState(() => displayOverly = false);
   }
 
   @override
