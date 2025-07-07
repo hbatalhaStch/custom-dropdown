@@ -26,8 +26,7 @@ class HeaderList extends StatelessWidget {
         separatorBuilder: (context, index) => const SizedBox(width: 5),
         itemBuilder: (context, index) {
           return Chip(
-            padding:
-                const EdgeInsets.only(left: 12, top: 0, right: 4, bottom: 0),
+            padding: const EdgeInsets.only(left: 12, top: 0, right: 4, bottom: 0),
             label: getLabel(index),
             deleteIcon: const Icon(Icons.cancel_outlined, size: 18),
             onDeleted: () {

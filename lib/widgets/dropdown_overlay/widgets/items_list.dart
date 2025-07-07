@@ -37,22 +37,18 @@ class _ItemsList<T> extends StatelessWidget {
         itemCount: items.length,
         itemBuilder: (_, index) {
           final selected = switch (dropdownType) {
-            _DropdownType.singleSelect =>
-              !excludeSelected && selectedItem == items[index],
+            _DropdownType.singleSelect => !excludeSelected && selectedItem == items[index],
             _DropdownType.multipleSelect => selectedItems.contains(items[index])
           };
           return Material(
             color: Colors.transparent,
             child: InkWell(
-              splashColor: decoration?.splashColor ??
-                  ListItemDecoration._defaultSplashColor,
-              highlightColor: decoration?.highlightColor ??
-                  ListItemDecoration._defaultHighlightColor,
+              splashColor: decoration?.splashColor ?? ListItemDecoration._defaultSplashColor,
+              highlightColor: decoration?.highlightColor ?? ListItemDecoration._defaultHighlightColor,
               onTap: () => onItemSelect(items[index]),
               child: Ink(
                 color: selected
-                    ? (decoration?.selectedColor ??
-                        ListItemDecoration._defaultSelectedColor)
+                    ? (decoration?.selectedColor ?? ListItemDecoration._defaultSelectedColor)
                     : Colors.transparent,
                 padding: listItemPadding,
                 child: listItemBuilder(

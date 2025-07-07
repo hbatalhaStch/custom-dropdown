@@ -343,9 +343,7 @@ class CustomDropdown<T> extends StatefulWidget {
           'Only one of initialItems or listController can be specified at a time',
         ),
         assert(
-          initialItems == null ||
-              initialItems.isEmpty ||
-              initialItems.any((e) => items!.contains(e)),
+          initialItems == null || initialItems.isEmpty || initialItems.any((e) => items!.contains(e)),
           'Initial items must match with the items in the items list.',
         ),
         _searchType = null,
@@ -397,9 +395,7 @@ class CustomDropdown<T> extends StatefulWidget {
           'Only one of initialItems or listController can be specified at a time',
         ),
         assert(
-          initialItems == null ||
-              initialItems.isEmpty ||
-              initialItems.any((e) => items!.contains(e)),
+          initialItems == null || initialItems.isEmpty || initialItems.any((e) => items!.contains(e)),
           'Initial items must match with the items in the items list.',
         ),
         _searchType = _SearchType.onListData,
@@ -475,25 +471,21 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
 
     if (widget.listController != null && widget.items != null) {
       assert(
-        widget.listController!.value.isEmpty ||
-            widget.listController!.value.any((e) => widget.items!.contains(e)),
+        widget.listController!.value.isEmpty || widget.listController!.value.any((e) => widget.items!.contains(e)),
         'Controller initial items must match with the items in the items list.',
       );
     }
 
     if (widget.controller != null && widget.items != null) {
       assert(
-        widget.controller!.value == null ||
-            widget.items!.contains(widget.controller!.value),
+        widget.controller!.value == null || widget.items!.contains(widget.controller!.value),
         'Controller initial item must match with one of the item in items list.',
       );
     }
 
-    selectedItemNotifier =
-        widget.controller ?? SelectController(widget.initialItem);
+    selectedItemNotifier = widget.controller ?? SelectController(widget.initialItem);
 
-    selectedItemsNotifier = widget.listController ??
-        MultiSelectController(widget.initialItems ?? []);
+    selectedItemsNotifier = widget.listController ?? MultiSelectController(widget.initialItems ?? []);
 
     selectedItemsNotifier.addListener(() {
       widget.onListChanged?.call(selectedItemsNotifier.value);
@@ -524,13 +516,11 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
       selectedItemsNotifier = MultiSelectController(widget.initialItems ?? []);
     }
 
-    if (widget.listController != oldWidget.listController &&
-        widget.listController != null) {
+    if (widget.listController != oldWidget.listController && widget.listController != null) {
       selectedItemsNotifier = widget.listController!;
     }
 
-    if (widget.controller != oldWidget.controller &&
-        widget.controller != null) {
+    if (widget.controller != oldWidget.controller && widget.controller != null) {
       selectedItemNotifier = widget.controller!;
     }
   }
@@ -554,12 +544,10 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
     return FormField<(T?, List<T>)>(
       initialValue: (selectedItemNotifier.value, selectedItemsNotifier.value),
       validator: (val) {
-        if (widget._dropdownType == _DropdownType.singleSelect &&
-            widget.validator != null) {
+        if (widget._dropdownType == _DropdownType.singleSelect && widget.validator != null) {
           return widget.validator!(val?.$1);
         }
-        if (widget._dropdownType == _DropdownType.multipleSelect &&
-            widget.listValidator != null) {
+        if (widget._dropdownType == _DropdownType.multipleSelect && widget.listValidator != null) {
           return widget.listValidator!(val?.$2 ?? []);
         }
         return null;
@@ -570,18 +558,15 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
           decoration: InputDecoration(
             label: decoration?.label,
             filled: true,
-            fillColor: decoration?.closedFillColor ??
-                CustomDropdownDecoration._defaultFillColor,
+            fillColor: decoration?.closedFillColor ?? CustomDropdownDecoration._defaultFillColor,
             floatingLabelStyle: const TextStyle(color: Colors.black),
             errorBorder: OutlineInputBorder(
               borderSide: decoration?.closedErrorBorder ?? _defaultErrorBorder,
-              borderRadius:
-                  decoration?.closedBorderRadius ?? _defaultBorderRadius,
+              borderRadius: decoration?.closedBorderRadius ?? _defaultBorderRadius,
             ),
             enabledBorder: OutlineInputBorder(
               borderSide: decoration?.closedBorder ?? _defaultBorder,
-              borderRadius:
-                  decoration?.closedBorderRadius ?? _defaultBorderRadius,
+              borderRadius: decoration?.closedBorderRadius ?? _defaultBorderRadius,
             ),
             contentPadding: _defaultHeaderPadding,
             errorStyle: decoration?.errorStyle ?? _defaultErrorStyle,
@@ -606,8 +591,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                       break;
                   }
                 },
-                noResultFoundText:
-                    widget.noResultFoundText ?? 'No result found.',
+                noResultFoundText: widget.noResultFoundText ?? 'No result found.',
                 noResultFoundBuilder: widget.noResultFoundBuilder,
                 items: widget.items ?? [],
                 selectedItemNotifier: selectedItemNotifier,
@@ -639,8 +623,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                 headerPadding: widget.expandedHeaderPadding,
                 itemsListPadding: widget.itemsListPadding,
                 listItemPadding: widget.listItemPadding,
-                searchRequestLoadingIndicator:
-                    widget.searchRequestLoadingIndicator,
+                searchRequestLoadingIndicator: widget.searchRequestLoadingIndicator,
                 dropdownType: widget._dropdownType,
                 dropdownPlacement: widget.dropdownPlacement,
               );
@@ -654,9 +637,8 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                     showCallback();
                   },
                   selectedItemNotifier: selectedItemNotifier,
-                  borderRadius: formFieldState.hasError
-                      ? decoration?.closedErrorBorderRadius
-                      : decoration?.closedBorderRadius,
+                  borderRadius:
+                      formFieldState.hasError ? decoration?.closedErrorBorderRadius : decoration?.closedBorderRadius,
                   shadow: decoration?.closedShadow,
                   hintStyle: decoration?.hintStyle,
                   headerStyle: decoration?.headerStyle,
