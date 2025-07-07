@@ -171,6 +171,7 @@ class CustomDropdown<T> extends StatefulWidget {
   /// controls whether [CustomDropdown] dropdown is placed at the bottom or at the top
   final DropdownPlacement? dropdownPlacement;
 
+  /// called when overlay is open
   final Future<void> Function()? listShowCallback;
 
   CustomDropdown({
