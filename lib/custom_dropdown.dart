@@ -500,22 +500,26 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
     selectedItemsNotifier = widget.listController ?? MultiSelectController(widget.initialItems ?? []);
 
     selectedItemsNotifier.addListener(() {
-      widget.onListChanged?.call(selectedItemsNotifier.value);
       if (mounted) {
+        widget.onListChanged?.call(selectedItemsNotifier.value);
+
         _formFieldState?.didChange((null, selectedItemsNotifier.value));
-      }
-      if (widget.validateOnChange) {
-        _formFieldState?.validate();
+
+        if (widget.validateOnChange) {
+          _formFieldState?.validate();
+        }
       }
     });
 
     selectedItemNotifier.addListener(() {
-      widget.onChanged?.call(selectedItemNotifier.value);
       if (mounted) {
+        widget.onChanged?.call(selectedItemNotifier.value);
+
         _formFieldState?.didChange((selectedItemNotifier.value, []));
-      }
-      if (widget.validateOnChange) {
-        _formFieldState?.validate();
+
+        if (widget.validateOnChange) {
+          _formFieldState?.validate();
+        }
       }
     });
   }
