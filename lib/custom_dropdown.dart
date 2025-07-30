@@ -501,7 +501,9 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
 
     selectedItemsNotifier.addListener(() {
       widget.onListChanged?.call(selectedItemsNotifier.value);
-      _formFieldState?.didChange((null, selectedItemsNotifier.value));
+      if (mounted) {
+        _formFieldState?.didChange((null, selectedItemsNotifier.value));
+      }
       if (widget.validateOnChange) {
         _formFieldState?.validate();
       }
@@ -509,7 +511,9 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
 
     selectedItemNotifier.addListener(() {
       widget.onChanged?.call(selectedItemNotifier.value);
-      _formFieldState?.didChange((selectedItemNotifier.value, []));
+      if (mounted) {
+        _formFieldState?.didChange((selectedItemNotifier.value, []));
+      }
       if (widget.validateOnChange) {
         _formFieldState?.validate();
       }
