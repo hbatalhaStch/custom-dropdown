@@ -29,6 +29,10 @@ class SelectController<T> extends ValueNotifier<T?> {
     notifyListeners();
   }
 
+  void setValueQuietly(T newValue) {
+    value = newValue;
+  }
+
   void clear() {
     value = null;
     notifyListeners();
