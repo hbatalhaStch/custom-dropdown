@@ -658,28 +658,35 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
             child: (showCallback) {
               return CompositedTransformTarget(
                 link: layerLink,
-                child: _DropDownField<T>(
-                  onTap: () async {
-                    await widget.listShowCallback?.call();
-                    showCallback();
-                  },
-                  selectedItemNotifier: selectedItemNotifier,
-                  borderRadius:
-                      formFieldState.hasError ? decoration?.closedErrorBorderRadius : decoration?.closedBorderRadius,
-                  shadow: decoration?.closedShadow,
-                  hintStyle: decoration?.hintStyle,
-                  headerStyle: decoration?.headerStyle,
-                  hintText: safeHintText,
-                  enabled: widget.enabled,
-                  hintBuilder: widget.hintBuilder,
-                  headerBuilder: widget.headerBuilder,
-                  headerListBuilder: widget.headerListBuilder,
-                  suffixIcon: decoration?.closedSuffixIcon,
-                  fillColor: decoration?.closedFillColor,
-                  maxLines: widget.maxlines,
-                  headerPadding: widget.closedHeaderPadding,
-                  dropdownType: widget._dropdownType,
-                  selectedItemsNotifier: selectedItemsNotifier,
+                child: ExcludeSemantics(
+                  excluding: !widget.enabled,
+                  child: AbsorbPointer(
+                    absorbing: !widget.enabled,
+                    child: _DropDownField<T>(
+                      onTap: () async {
+                        await widget.listShowCallback?.call();
+                        showCallback();
+                      },
+                      selectedItemNotifier: selectedItemNotifier,
+                      borderRadius: formFieldState.hasError
+                          ? decoration?.closedErrorBorderRadius
+                          : decoration?.closedBorderRadius,
+                      shadow: decoration?.closedShadow,
+                      hintStyle: decoration?.hintStyle,
+                      headerStyle: decoration?.headerStyle,
+                      hintText: safeHintText,
+                      enabled: widget.enabled,
+                      hintBuilder: widget.hintBuilder,
+                      headerBuilder: widget.headerBuilder,
+                      headerListBuilder: widget.headerListBuilder,
+                      suffixIcon: decoration?.closedSuffixIcon,
+                      fillColor: decoration?.closedFillColor,
+                      maxLines: widget.maxlines,
+                      headerPadding: widget.closedHeaderPadding,
+                      dropdownType: widget._dropdownType,
+                      selectedItemsNotifier: selectedItemsNotifier,
+                    ),
+                  ),
                 ),
               );
             },

@@ -120,7 +120,7 @@ class _DropDownFieldState<T> extends State<_DropDownField<T>> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.enabled ? widget.onTap : null,
+      onTap: widget.onTap,
       child: Container(
         decoration: BoxDecoration(
           color: widget.fillColor ?? CustomDropdownDecoration._defaultFillColor,
