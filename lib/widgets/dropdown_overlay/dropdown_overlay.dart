@@ -317,7 +317,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> with WidgetsBi
       displayOverlayBottom
           ? decoration?.label != null
               ? -19
-              : -14
+              : -15
           : 64,
     );
 
