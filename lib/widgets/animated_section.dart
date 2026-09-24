@@ -34,7 +34,9 @@ class _AnimatedSectionState extends State<_AnimatedSection> with SingleTickerPro
       duration: const Duration(milliseconds: 300),
     )..addStatusListener((status) {
         if (status == AnimationStatus.dismissed) {
-          widget.animationDismissed();
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            widget.animationDismissed();
+          });
         }
       });
 
