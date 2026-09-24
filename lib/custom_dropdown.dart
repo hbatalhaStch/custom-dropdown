@@ -177,6 +177,9 @@ class CustomDropdown<T> extends StatefulWidget {
   /// called when overlay is open
   final Future<void> Function()? listShowCallback;
 
+  /// Flag to control visibility of search field
+  final bool? showSearchField;
+
   CustomDropdown({
     super.key,
     this.items,
@@ -213,6 +216,7 @@ class CustomDropdown<T> extends StatefulWidget {
           initialItem == null || items!.contains(initialItem),
           'Initial item must match with one of the item in items list.',
         ),
+        showSearchField = null,
         _searchType = null,
         _dropdownType = _DropdownType.singleSelect,
         futureRequest = null,
@@ -258,6 +262,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.canCloseOutsideBounds = true,
     this.hideSelectedFieldWhenExpanded = false,
     this.enabled = true,
+    this.showSearchField,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -266,7 +271,7 @@ class CustomDropdown<T> extends StatefulWidget {
           initialItem == null || items!.contains(initialItem),
           'Initial item must match with one of the item in items list.',
         ),
-        _searchType = _SearchType.onListData,
+        _searchType = showSearchField == false ? null : _SearchType.onListData,
         _dropdownType = _DropdownType.singleSelect,
         futureRequest = null,
         futureRequestDelay = null,
@@ -310,7 +315,8 @@ class CustomDropdown<T> extends StatefulWidget {
     this.canCloseOutsideBounds = true,
     this.enabled = true,
     this.hideSelectedFieldWhenExpanded = false,
-  })  : _searchType = _SearchType.onRequestData,
+    this.showSearchField,
+  })  : _searchType = showSearchField == false ? null : _SearchType.onRequestData,
         _dropdownType = _DropdownType.singleSelect,
         initialItems = null,
         onListChanged = null,
@@ -354,6 +360,7 @@ class CustomDropdown<T> extends StatefulWidget {
           initialItems == null || initialItems.isEmpty || initialItems.any((e) => items!.contains(e)),
           'Initial items must match with the items in the items list.',
         ),
+        showSearchField = null,
         _searchType = null,
         _dropdownType = _DropdownType.multipleSelect,
         initialItem = null,
@@ -399,6 +406,7 @@ class CustomDropdown<T> extends StatefulWidget {
     this.expandedHeaderPadding,
     this.itemsListPadding,
     this.listItemPadding,
+    this.showSearchField,
   })  : assert(
           initialItems == null || listController == null,
           'Only one of initialItems or listController can be specified at a time',
@@ -407,7 +415,7 @@ class CustomDropdown<T> extends StatefulWidget {
           initialItems == null || initialItems.isEmpty || initialItems.any((e) => items!.contains(e)),
           'Initial items must match with the items in the items list.',
         ),
-        _searchType = _SearchType.onListData,
+        _searchType = showSearchField == false ? null : _SearchType.onListData,
         _dropdownType = _DropdownType.multipleSelect,
         initialItem = null,
         onChanged = null,
@@ -451,11 +459,12 @@ class CustomDropdown<T> extends StatefulWidget {
     this.canCloseOutsideBounds = true,
     this.enabled = true,
     this.hideSelectedFieldWhenExpanded = false,
+    this.showSearchField,
   })  : assert(
           initialItems == null || listController == null,
           'Only one of initialItems or listController can be specified at a time',
         ),
-        _searchType = _SearchType.onRequestData,
+        _searchType = showSearchField == false ? null : _SearchType.onRequestData,
         _dropdownType = _DropdownType.multipleSelect,
         initialItem = null,
         onChanged = null,
