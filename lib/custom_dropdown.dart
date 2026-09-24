@@ -3,6 +3,7 @@ library animated_custom_dropdown;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 export 'custom_dropdown.dart';
 export 'widgets/header_list.dart';
@@ -113,12 +114,6 @@ class CustomDropdown<T> extends StatefulWidget {
   /// Text maxlines for header and list item text.
   final int maxlines;
 
-  /// Padding for [CustomDropdown] header (closed state).
-  final EdgeInsets? closedHeaderPadding;
-
-  /// Padding for [CustomDropdown] header (opened/expanded state).
-  final EdgeInsets? expandedHeaderPadding;
-
   /// Padding for [CustomDropdown] items list.
   final EdgeInsets? itemsListPadding;
 
@@ -198,8 +193,6 @@ class CustomDropdown<T> extends StatefulWidget {
     this.maxlines = 1,
     this.overlayHeight,
     this.minItemsForOverlayHeight = 4,
-    this.closedHeaderPadding,
-    this.expandedHeaderPadding,
     this.itemsListPadding,
     this.listItemPadding,
     this.controller,
@@ -252,8 +245,6 @@ class CustomDropdown<T> extends StatefulWidget {
     this.maxlines = 1,
     this.overlayHeight,
     this.minItemsForOverlayHeight = 4,
-    this.closedHeaderPadding,
-    this.expandedHeaderPadding,
     this.itemsListPadding,
     this.listItemPadding,
     this.controller,
@@ -305,8 +296,6 @@ class CustomDropdown<T> extends StatefulWidget {
     this.maxlines = 1,
     this.overlayHeight,
     this.minItemsForOverlayHeight = 4,
-    this.closedHeaderPadding,
-    this.expandedHeaderPadding,
     this.itemsListPadding,
     this.listItemPadding,
     this.searchRequestLoadingIndicator,
@@ -347,8 +336,6 @@ class CustomDropdown<T> extends StatefulWidget {
     this.maxlines = 1,
     this.overlayHeight,
     this.minItemsForOverlayHeight = 4,
-    this.closedHeaderPadding,
-    this.expandedHeaderPadding,
     this.itemsListPadding,
     this.listItemPadding,
     this.futureLoad,
@@ -402,8 +389,6 @@ class CustomDropdown<T> extends StatefulWidget {
     this.overlayHeight,
     this.futureLoad,
     this.minItemsForOverlayHeight = 4,
-    this.closedHeaderPadding,
-    this.expandedHeaderPadding,
     this.itemsListPadding,
     this.listItemPadding,
     this.showSearchField,
@@ -452,8 +437,6 @@ class CustomDropdown<T> extends StatefulWidget {
     this.overlayHeight,
     this.minItemsForOverlayHeight = 4,
     this.searchRequestLoadingIndicator,
-    this.closedHeaderPadding,
-    this.expandedHeaderPadding,
     this.itemsListPadding,
     this.listItemPadding,
     this.canCloseOutsideBounds = true,
@@ -597,10 +580,10 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
               borderSide: decoration?.closedBorder ?? _defaultBorder,
               borderRadius: decoration?.closedBorderRadius ?? _defaultBorderRadius,
             ),
-            contentPadding: decoration?.headerPadding ?? _defaultHeaderPadding,
+            contentPadding: decoration?.closedHeaderPadding ?? _defaultHeaderPadding,
             errorStyle: decoration?.errorStyle ?? _defaultErrorStyle,
             errorText: formFieldState.errorText,
-            isDense: decoration?.isDense,
+            isDense: decoration?.closedIsDense,
           ),
           child: _OverlayBuilder(
             overlay: (size, hideCallback) {
@@ -650,7 +633,6 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                 futureRequestDelay: widget.futureRequestDelay,
                 hideSelectedFieldWhenOpen: widget.hideSelectedFieldWhenExpanded,
                 maxLines: widget.maxlines,
-                headerPadding: widget.expandedHeaderPadding,
                 itemsListPadding: widget.itemsListPadding,
                 listItemPadding: widget.listItemPadding,
                 searchRequestLoadingIndicator: widget.searchRequestLoadingIndicator,
@@ -692,7 +674,6 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
                       suffixIcon: decoration?.closedSuffixIcon,
                       fillColor: decoration?.closedFillColor,
                       maxLines: widget.maxlines,
-                      headerPadding: widget.closedHeaderPadding,
                       dropdownType: widget._dropdownType,
                       selectedItemsNotifier: selectedItemsNotifier,
                     ),

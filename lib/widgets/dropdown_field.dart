@@ -17,7 +17,6 @@ class _DropDownField<T> extends StatefulWidget {
   final TextStyle? errorStyle, headerStyle, hintStyle;
   final Widget? suffixIcon;
   final List<BoxShadow>? shadow;
-  final EdgeInsets? headerPadding;
   final int maxLines;
   final _HeaderBuilder<T>? headerBuilder;
   final _HeaderListBuilder<T>? headerListBuilder;
@@ -45,7 +44,6 @@ class _DropDownField<T> extends StatefulWidget {
     this.headerListBuilder,
     this.hintBuilder,
     this.suffixIcon,
-    this.headerPadding,
   });
 
   @override

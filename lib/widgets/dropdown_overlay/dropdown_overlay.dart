@@ -31,7 +31,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final double? overlayHeight;
   final int minItemsForOverlayHeight;
   final TextStyle? hintStyle, headerStyle, noResultFoundStyle, listItemStyle;
-  final EdgeInsets? headerPadding, listItemPadding, itemsListPadding;
+  final EdgeInsets? listItemPadding, itemsListPadding;
   final Widget? searchRequestLoadingIndicator;
   final _ListItemBuilder<T>? listItemBuilder;
 
@@ -69,7 +69,6 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.noResultFoundStyle,
     required this.hideSelectedFieldWhenOpen,
     required this.searchRequestLoadingIndicator,
-    required this.headerPadding,
     required this.itemsListPadding,
     required this.listItemPadding,
     required this.headerBuilder,
@@ -424,8 +423,9 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> with WidgetsBi
                                           borderRadius: widget.decoration?.expandedBorderRadius ?? _defaultBorderRadius,
                                           borderSide: decoration?.expandedBorder ?? _defaultBorder,
                                         ),
-                                        contentPadding: _defaultHeaderPadding,
+                                        contentPadding: decoration?.expandedHeaderPadding ?? _defaultHeaderPadding,
                                         suffixIcon: decoration?.expandedSuffixIcon ?? _defaultOverlayIconUp,
+                                        isDense: decoration?.expandedIsDense,
                                       ),
                                       child: switch (widget.dropdownType) {
                                         _DropdownType.singleSelect =>

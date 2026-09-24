@@ -68,14 +68,23 @@ class CustomDropdownDecoration {
   /// [CustomDropdown] list item decoration.
   final ListItemDecoration? listItemDecoration;
 
-  /// header content padding
-  final EdgeInsets? headerPadding;
+  /// header content padding for closed state of [CustomDropdown].
+  final EdgeInsets? closedHeaderPadding;
 
-  /// Whether header is part of a dense form (i.e., uses less vertical
+  /// header content padding for opened/expanded state of [CustomDropdown].
+  final EdgeInsets? expandedHeaderPadding;
+
+  /// Whether header for opened/expanded state is part of a dense form (i.e., uses less vertical
   /// space).
   ///
   /// Defaults to false.
-  final bool isDense;
+  final bool expandedIsDense;
+
+  /// Whether header for closed state is part of a dense form (i.e., uses less vertical
+  /// space).
+  ///
+  /// Defaults to false.
+  final bool closedIsDense;
 
   const CustomDropdownDecoration({
     this.closedFillColor,
@@ -99,8 +108,10 @@ class CustomDropdownDecoration {
     this.overlayScrollbarDecoration,
     this.searchFieldDecoration,
     this.listItemDecoration,
-    this.headerPadding,
-    this.isDense = false,
+    this.closedHeaderPadding,
+    this.expandedHeaderPadding,
+    this.expandedIsDense = false,
+    this.closedIsDense = false,
   });
 
   static const Color _defaultFillColor = Colors.white;
