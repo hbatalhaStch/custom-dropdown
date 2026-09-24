@@ -68,6 +68,9 @@ class CustomDropdownDecoration {
   /// [CustomDropdown] list item decoration.
   final ListItemDecoration? listItemDecoration;
 
+  /// header content padding
+  final EdgeInsets? headerPadding;
+
   const CustomDropdownDecoration({
     this.closedFillColor,
     this.expandedFillColor,
@@ -90,6 +93,7 @@ class CustomDropdownDecoration {
     this.overlayScrollbarDecoration,
     this.searchFieldDecoration,
     this.listItemDecoration,
+    this.headerPadding,
   });
 
   static const Color _defaultFillColor = Colors.white;

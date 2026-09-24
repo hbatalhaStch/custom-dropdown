@@ -597,7 +597,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
               borderSide: decoration?.closedBorder ?? _defaultBorder,
               borderRadius: decoration?.closedBorderRadius ?? _defaultBorderRadius,
             ),
-            contentPadding: _defaultHeaderPadding,
+            contentPadding: decoration?.headerPadding ?? _defaultHeaderPadding,
             errorStyle: decoration?.errorStyle ?? _defaultErrorStyle,
             errorText: formFieldState.errorText,
           ),
