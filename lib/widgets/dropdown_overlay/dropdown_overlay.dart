@@ -423,9 +423,11 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> with WidgetsBi
                                           borderRadius: widget.decoration?.expandedBorderRadius ?? _defaultBorderRadius,
                                           borderSide: decoration?.expandedBorder ?? _defaultBorder,
                                         ),
-                                        contentPadding: decoration?.expandedHeaderPadding ?? _defaultHeaderPadding,
+                                        contentPadding: decoration?.headerPadding ??
+                                            decoration?.expandedHeaderPadding ??
+                                            _defaultHeaderPadding,
                                         suffixIcon: decoration?.expandedSuffixIcon ?? _defaultOverlayIconUp,
-                                        isDense: decoration?.expandedIsDense,
+                                        isDense: decoration?.isDense ?? decoration?.expandedIsDense,
                                       ),
                                       child: switch (widget.dropdownType) {
                                         _DropdownType.singleSelect =>

@@ -580,10 +580,10 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>> {
               borderSide: decoration?.closedBorder ?? _defaultBorder,
               borderRadius: decoration?.closedBorderRadius ?? _defaultBorderRadius,
             ),
-            contentPadding: decoration?.closedHeaderPadding ?? _defaultHeaderPadding,
+            contentPadding: decoration?.headerPadding ?? decoration?.closedHeaderPadding ?? _defaultHeaderPadding,
             errorStyle: decoration?.errorStyle ?? _defaultErrorStyle,
             errorText: formFieldState.errorText,
-            isDense: decoration?.closedIsDense,
+            isDense: decoration?.isDense ?? decoration?.closedIsDense,
           ),
           child: _OverlayBuilder(
             overlay: (size, hideCallback) {

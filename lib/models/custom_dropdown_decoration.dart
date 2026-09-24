@@ -86,6 +86,16 @@ class CustomDropdownDecoration {
   /// Defaults to false.
   final bool closedIsDense;
 
+  /// header content padding
+  /// Takes precedence over [expandedHeaderPadding] and [closedHeaderPadding]
+  final EdgeInsets? headerPadding;
+
+  /// Whether header is part of a dense form (i.e., uses less vertical
+  /// space).
+  ///
+  /// Takes precedence over [expandedIsDense] and [closedIsDense]
+  final bool? isDense;
+
   const CustomDropdownDecoration({
     this.closedFillColor,
     this.expandedFillColor,
@@ -112,6 +122,8 @@ class CustomDropdownDecoration {
     this.expandedHeaderPadding,
     this.expandedIsDense = false,
     this.closedIsDense = false,
+    this.headerPadding,
+    this.isDense,
   });
 
   static const Color _defaultFillColor = Colors.white;
